@@ -115,7 +115,7 @@ denoisedI = denoiseImage(b,net);
 axes(handles.axes3);
 imshow(denoisedI);
 psnr1 = psnr(denoisedI,B);
-set(handles.text2, 'string',psnr1);
+set(handles.text2, 'string', 'convoluted NN PSNR:' + psnr1);
 
 % --- Executes on button press in pushbutton4.
 function pushbutton4_Callback(hObject, eventdata, handles)
@@ -127,7 +127,7 @@ global B;
 denoisedI2 = medfilt2(c, [3 3]);
 axes(handles.axes4);
 imshow(denoisedI2);
-psnr2 = psnr(c,B);
+psnr2 = psnr(denoisedI2,B);
 set(handles.text3, 'string', psnr2);
 
 
@@ -138,8 +138,8 @@ function pushbutton6_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global d;
 global B;
-denoisedI3 = filter2(fspecial('average',3),d)/255;
+denoisedI3 = wiener2(d,[3 3]);
 axes(handles.axes5);
 imshow(denoisedI3);
-psnr3 = psnr(d,B);
+psnr3 = psnr(denoisedI3, B);
 set(handles.text4, 'string', psnr3)
